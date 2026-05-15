@@ -2182,9 +2182,13 @@ class AsyncOmniEngine:
             self._omni_master_server = None
 
         # Shutdown the long-lived stage init executor
+        # Use wait=False to avoid deadlock when startup is failing due to stuck
+        # replica init. In failure scenarios, stage-init futures may still be
+        # running (blocked in model load/handshake), and wait=True would block
+        # indefinitely, turning a recoverable init timeout into a process hang.
         if self._stage_init_executor is not None:
             try:
-                self._stage_init_executor.shutdown(wait=True)
+                self._stage_init_executor.shutdown(wait=False)
             except Exception:
                 logger.exception("[AsyncOmniEngine] Failed to shutdown stage init executor")
             self._stage_init_executor = None
