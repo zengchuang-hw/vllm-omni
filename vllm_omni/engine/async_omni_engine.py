@@ -327,6 +327,11 @@ class AsyncOmniEngine:
         self._shutdown_called = False
         self._weak_finalizer: weakref.finalize | None = None
         self._rpc_lock = threading.Lock()
+        # Long-lived ThreadPoolExecutor for stage initialization.
+        # Using a scoped executor caused Ray's actor subreaper to SIGKILL
+        # diffusion worker processes when the thread was destroyed.
+        # The engine-level executor keeps threads alive for the engine lifetime.
+        self._stage_init_executor: concurrent.futures.ThreadPoolExecutor | None = None
 
         logger.info(f"[AsyncOmniEngine] Launching Orchestrator thread with {self.num_stages} stages")
 
@@ -898,78 +903,57 @@ class AsyncOmniEngine:
         stage_plans: Sequence[LogicalStageInitPlan],
         stage_init_timeout: int,
     ) -> dict[int, list[StagePoolClient | None]]:
-        """Initialize all stage replicas.
+        """Initialize all stage replicas in parallel.
 
-        Diffusion replicas are launched **inline on the orchestrator thread**
-        (the long-lived daemon thread created in ``__init__``). Their
-        ``mp.Process`` workers are therefore parented by a thread whose
-        lifetime equals the engine's lifetime. Submitting diffusion init to a
-        scoped ``ThreadPoolExecutor`` causes the clone-parent Python thread to
-        be destroyed at the end of init, which under Ray's actor subreaper
-        leads the spawned ``DiffusionWorker`` processes to be silently
-        ``SIGKILL``ed (exitcode -9). See git blame on this method.
-
-        LLM replicas keep using the parallel init executor.
+        Uses an engine-level ThreadPoolExecutor (created lazily on first call,
+        destroyed in shutdown) instead of a scoped executor. A scoped executor
+        caused Ray's actor subreaper to SIGKILL diffusion worker processes
+        when the thread was destroyed at the end of the with-block.
+        The engine-level executor keeps threads alive for the engine lifetime,
+        preventing this issue while allowing all replicas to initialize in parallel.
         """
 
         stage_launch_lock = threading.Lock()
         initialized_clients_by_stage: dict[int, list[StagePoolClient | None]] = {
             plan.stage_idx: [None] * len(plan.replicas) for plan in stage_plans
         }
+        total_replicas = sum(len(plan.replicas) for plan in stage_plans)
         primary_exc: Exception | None = None
 
-        # Partition replicas: diffusion runs inline on the caller's thread;
-        # LLM replicas are submitted to a scoped ThreadPoolExecutor.
-        diffusion_replicas: list[tuple[int, ReplicaInitPlan]] = []
-        llm_replicas: list[tuple[int, ReplicaInitPlan]] = []
+        # Create engine-level executor if not already created
+        if self._stage_init_executor is None:
+            self._stage_init_executor = concurrent.futures.ThreadPoolExecutor(
+                max_workers=max(1, total_replicas),
+                thread_name_prefix="stage-init",
+            )
+
+        future_to_replica: dict[concurrent.futures.Future[StagePoolClient], tuple[int, int]] = {}
+
+        # Submit all replicas in parallel (both LLM and diffusion)
         for plan in stage_plans:
             for replica in plan.replicas:
-                if replica.metadata.stage_type == "diffusion":
-                    diffusion_replicas.append((plan.stage_idx, replica))
-                else:
-                    llm_replicas.append((plan.stage_idx, replica))
-
-        # --- 1) Diffusion replicas: inline on the orchestrator thread. ---
-        for stage_idx, replica in diffusion_replicas:
-            try:
-                initialized_clients_by_stage[stage_idx][replica.replica_id] = self._initialize_replica(
+                future = self._stage_init_executor.submit(
+                    self._initialize_replica,
                     replica,
                     stage_init_timeout,
                     stage_launch_lock,
                 )
+                future_to_replica[future] = (plan.stage_idx, replica.replica_id)
+
+        # Wait for all futures to complete
+        for future in concurrent.futures.as_completed(future_to_replica):
+            stage_idx, replica_id = future_to_replica[future]
+            try:
+                initialized_clients_by_stage[stage_idx][replica_id] = future.result()
+            except concurrent.futures.CancelledError:
+                continue
             except Exception as exc:
-                primary_exc = exc
-                break
-
-        # --- 2) LLM replicas: parallel init via a scoped ThreadPoolExecutor. ---
-        if primary_exc is None and llm_replicas:
-            future_to_replica: dict[concurrent.futures.Future[StagePoolClient], tuple[int, int]] = {}
-            with concurrent.futures.ThreadPoolExecutor(
-                max_workers=max(1, len(llm_replicas)),
-                thread_name_prefix="stage-init",
-            ) as init_executor:
-                for stage_idx, replica in llm_replicas:
-                    future = init_executor.submit(
-                        self._initialize_replica,
-                        replica,
-                        stage_init_timeout,
-                        stage_launch_lock,
-                    )
-                    future_to_replica[future] = (stage_idx, replica.replica_id)
-
-                for future in concurrent.futures.as_completed(future_to_replica):
-                    stage_idx, replica_id = future_to_replica[future]
-                    try:
-                        initialized_clients_by_stage[stage_idx][replica_id] = future.result()
-                    except concurrent.futures.CancelledError:
-                        continue
-                    except Exception as exc:
-                        if primary_exc is None:
-                            primary_exc = exc
-                            for other_future in future_to_replica:
-                                if other_future is future:
-                                    continue
-                                other_future.cancel()
+                if primary_exc is None:
+                    primary_exc = exc
+                    for other_future in future_to_replica:
+                        if other_future is future:
+                            continue
+                        other_future.cancel()
 
         if primary_exc is not None:
             setattr(primary_exc, "_initialized_clients_by_stage", initialized_clients_by_stage)
@@ -2196,6 +2180,14 @@ class AsyncOmniEngine:
             except Exception:
                 logger.exception("[AsyncOmniEngine] Failed to stop OmniMasterServer during shutdown")
             self._omni_master_server = None
+
+        # Shutdown the long-lived stage init executor
+        if self._stage_init_executor is not None:
+            try:
+                self._stage_init_executor.shutdown(wait=True)
+            except Exception:
+                logger.exception("[AsyncOmniEngine] Failed to shutdown stage init executor")
+            self._stage_init_executor = None
 
     def _try_shutdown(self, *args, **kwargs) -> None:
         try:
