@@ -64,59 +64,68 @@ THRESHOLDS = {
     "psnr": 11.0,  # Peak signal-to-noise ratio (dB)
 }
 # fmt: off
-_BASE_CONFIG = {
-    "stage_args": [
+_DEPLOY_CONFIG = {
+    "pipeline": "hunyuan_image_3_moe",
+    "async_chunk": False,
+    "trust_remote_code": True,
+    "connectors": {
+        "shared_memory_connector": {
+            "name": "SharedMemoryConnector",
+            "extra": {"shm_threshold_bytes": 65536},
+        },
+    },
+    "stages": [
         {
-            "stage_id": 0, "stage_type": "llm",
-            "runtime": {"process": True, "devices": AR_DEVICES, "max_batch_size": 1, "requires_multimodal_data": True},
-            "engine_args": {
-                "model_stage": "AR", "model_arch": "HunyuanImage3ForCausalMM",
-                "worker_cls": "vllm_omni.worker.gpu_ar_worker.GPUARWorker",
-                "scheduler_cls": "vllm_omni.core.sched.omni_ar_scheduler.OmniARScheduler",
-                "gpu_memory_utilization": 0.95, "enforce_eager": True, "trust_remote_code": True,
-                "engine_output_type": "latent", "enable_prefix_caching": False,
-                "max_num_batched_tokens": 32768, "tensor_parallel_size": 2, "pipeline_parallel_size": 1,
-                "hf_overrides": {"rope_parameters": {"mrope_section": [0, 32, 32], "rope_type": "default"}},
-            },
-            "is_comprehension": False, "final_output": True, "final_output_type": "text",
-            "default_sampling_params": {
-                "temperature": 0.0, "top_p": 1, "top_k": -1, "max_tokens": 8192,
-                "stop_token_ids": [128025], "detokenize": True, "skip_special_tokens": False,
+            "stage_id": 0,
+            "is_comprehension": False,
+            "final_output": True,
+            "final_output_type": "text",
+            "max_num_seqs": 1,
+            "gpu_memory_utilization": 0.95,
+            "enforce_eager": True,
+            "trust_remote_code": True,
+            "max_num_batched_tokens": 32768,
+            "devices": AR_DEVICES,
+            "tensor_parallel_size": AR_TP_SIZE,
+            "hf_overrides": {
+                "rope_parameters": {"mrope_section": [0, 32, 32], "rope_type": "default"},
             },
             "output_connectors": {"to_stage_1": "shared_memory_connector"},
+            "default_sampling_params": {
+                "temperature": 0.0,
+                "top_p": 1,
+                "top_k": -1,
+                "max_tokens": 8192,
+                "stop_token_ids": [128025],
+                "detokenize": True,
+                "skip_special_tokens": False,
+            },
         },
         {
-            "stage_id": 1, "stage_type": "diffusion",
-            "runtime": {"process": True, "devices": DIT_DEVICES, "max_batch_size": 1, "requires_multimodal_data": True},
-            "engine_args": {
-                "model_stage": "dit", "model_arch": "HunyuanImage3ForCausalMM",
-                "enforce_eager": True, "trust_remote_code": True, "distributed_executor_backend": "mp",
-                "parallel_config": {"tensor_parallel_size": 2, "enable_expert_parallel": True},
-            },
-            "engine_input_source": [0],
-            "custom_process_input_func": "vllm_omni.model_executor.stage_input_processors.hunyuan_image3.ar2diffusion",
-            "final_output": True, "final_output_type": "image",
-            "default_sampling_params": {"num_inference_steps": NUM_INFERENCE_STEPS, "guidance_scale": GUIDANCE_SCALE},
+            "stage_id": 1,
+            "max_num_seqs": 1,
+            "enforce_eager": True,
+            "trust_remote_code": True,
+            "devices": DIT_DEVICES,
+            "distributed_executor_backend": "mp",
+            "parallel_config": {"tensor_parallel_size": DIT_TP_SIZE, "enable_expert_parallel": True},
             "input_connectors": {"from_stage_0": "shared_memory_connector"},
+            "default_sampling_params": {
+                "num_inference_steps": NUM_INFERENCE_STEPS,
+                "guidance_scale": GUIDANCE_SCALE,
+            },
         },
     ],
-    "runtime": {
-        "enabled": True,
-        "connectors": {"shared_memory_connector": {
-            "name": "SharedMemoryConnector",
-            "extra": {"shm_threshold_bytes": 65536}
-        }},
-        "edges": [{"from": 0, "to": 1}],
-    },
+    "edges": [{"from": 0, "to": 1}],
 }
 # fmt: on
 
 # fmt: off
 COT_REF = ("首先，我分析所有输入图像：图像1是一个圆形的logo，设计现代且抽象。它由不同色调的蓝色（深蓝、中蓝、浅蓝）和白色构成，这些色块以流畅的曲线相互交织，形成一个动态的、类似旋涡或波浪的图案。整个logo是扁平化的矢量图形，背景为纯黑色。图像2展示了四个并排摆放的卡通动物造型冰箱贴，"
-           "它们被放置在灰色的织物背景上。这些冰箱贴的关键特征是其材质：它们具有光滑、高光的珐琅或烤漆质感，边缘有明显的金属包边，整体呈现出一种立体的、有厚度的实体感。用户的指令是“基于图一的logo，参考图二中冰箱贴的材质，制作一个新的冰箱贴”。这个指令要求将一个二维的平面设计（logo）"
+           "它们被放置在灰色的织物背景上。这些冰箱贴的关键特征是其材质：它们具有光滑、高光的珐琅或烤漆质感，边缘有明显的金属包边，整体呈现出一种立体的、有厚度的实体感。用户的指令是"基于图一的logo，参考图二中冰箱贴的材质，制作一个新的冰箱贴"。这个指令要求将一个二维的平面设计（logo）"
            "转化为一个具有特定物理属性（材质和立体感）的三维物体。核心任务是保留logo的视觉识别性，同时赋予其冰箱贴的实体质感。为了构建答案图像，我会将图一的圆形logo作为基础形状。然后，我会将图二中冰箱贴的材质特性应用到这个logo上。具体来说，logo中的每一个色块（深蓝、中蓝、浅蓝、白色）"
            "都会被渲染成具有高光泽度的珐琅质感，表面会反射出柔和的环境光，形成自然的高光。logo中不同颜色区域之间的分界线，将被处理成纤细的、带有金属光泽的凸起边缘，这既能清晰地勾勒出图案，也符合珐琅工艺品的典型特征。整个冰箱贴会呈现出轻微的厚度和圆润的边缘，使其看起来像一个真实的、可触摸的物体。"
-           "最后，将这个制作完成的冰箱贴放置在图二所示的灰色织物背景上，并为其添加一个微妙的、柔和的阴影，以增强其立体感和与背景的融合度，最终呈现出一个精致、逼真的产品展示图。</think><recaption>这幅图像以产品摄影的精致风格，呈现了一枚根据`image_1`标志定制的圆形珐琅冰箱贴。最终图像使用`image_2`的分辨率。"
+           "最后，将这个制作完成的冰箱贴放置在图二所示的灰色织物背景上，并为其添加一个微妙的、柔和的阴影，以增强其立体感和与背景的融合度，最终呈现出一个精致、逼真的产品展示图。</recaption>这幅图像以产品摄影的精致风格，呈现了一枚根据`image_1`标志定制的圆形珐琅冰箱贴。最终图像使用`image_2`的分辨率。"
            "冰箱贴居中放置在`image_2`的灰色织物背景上，其设计完美复刻了`image_1`中由深蓝、中蓝、浅蓝和白色构成的动态旋涡图案。整个冰箱贴被赋予了`image_2`中冰箱贴特有的高级质感：表面覆盖着一层光滑如镜的珐琅釉面，反射出柔和而清晰的高光；图案的每一个色块边缘都由纤细的抛光金属边框精确勾勒，增强了立体感。"
            "柔和的顶光在冰箱贴的弧形边缘上形成平滑的过渡，并在其下方投下淡淡的、轮廓模糊的阴影，使其与织物背景无缝融合，营造出一种真实、静谧的视觉效果。<relation_1>最终图像完整保留了`image_1`中标志的全部设计元素。这包括其完美的圆形轮廓，以及内部由深蓝、中蓝、浅蓝和白色组成的精确旋涡状图案布局、形状和色彩关系。"
            "</relation_1><relation_2>最终图像的分辨率、背景和材质均来自`image_2`。背景中灰色织物的纹理和质感被完整保留。冰箱贴的材质被完美重构，精确复刻了`image_2`中冰箱贴所展示的光滑珐琅质感、抛光金属边框的视觉效果，以及整体柔和、均匀的布光环境和由此产生的自然阴影。</relation_2></recaption><answer><boi>"
@@ -125,13 +134,13 @@ COT_REF = ("首先，我分析所有输入图像：图像1是一个圆形的logo
 
 
 def _make_config(enable_kv_reuse: bool, path: Path) -> None:
-    config = copy.deepcopy(_BASE_CONFIG)
-    config["stage_args"][0]["engine_args"]["omni_kv_config"] = {"need_send_cache": enable_kv_reuse}
-    config["stage_args"][1]["engine_args"]["omni_kv_config"] = {"need_recv_cache": enable_kv_reuse}
+    config = copy.deepcopy(_DEPLOY_CONFIG)
+    config["stages"][0]["omni_kv_config"] = {"need_send_cache": enable_kv_reuse}
+    config["stages"][1]["omni_kv_config"] = {"need_recv_cache": enable_kv_reuse}
     path.write_text(yaml.dump(config, default_flow_style=False, sort_keys=False))
 
 
-def _run_offline(stage_configs_path: str, output_path: Path) -> tuple[Image.Image, str, float]:
+def _run_offline(deploy_config_path: str, output_path: Path) -> tuple[Image.Image, str, float]:
     from transformers import AutoTokenizer
 
     from vllm_omni.inputs.data import OmniDiffusionSamplingParams, OmniPromptType
@@ -149,7 +158,7 @@ def _run_offline(stage_configs_path: str, output_path: Path) -> tuple[Image.Imag
     system_prompt_type = result.system_prompt_type
 
     ar_stop_token_ids = resolve_stop_token_ids(task="it2i", bot_task="think_recaption", tokenizer=tokenizer)
-    with OmniRunner(MODEL_NAME, stage_configs_path=stage_configs_path) as runner:
+    with OmniRunner(MODEL_NAME, deploy_config=deploy_config_path) as runner:
         params_list = list(runner.omni.default_sampling_params_list)
         for sp in params_list:
             if isinstance(sp, OmniDiffusionSamplingParams):
