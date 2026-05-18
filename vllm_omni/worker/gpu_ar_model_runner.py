@@ -95,6 +95,9 @@ class GPUARModelRunner(OmniGPUModelRunner, OmniConnectorModelRunnerMixin):
                 kv_transfer_manager=self.kv_transfer_manager,
             )
         self._downstream_payload_cache: dict[str, bool] = {}
+        # Cache for model sampler token history, accumulated across iterations
+        # in async scheduling mode where scheduler/GPU runner are separate processes
+        self._model_sampler_token_history: dict[str, list[int]] = {}
 
     def _make_buffer(self, *size, dtype, numpy=True):
         # Prevent ray from pinning the buffer due to large size
@@ -113,13 +116,33 @@ class GPUARModelRunner(OmniGPUModelRunner, OmniConnectorModelRunnerMixin):
         """Build decoded-token history for custom model samplers.
 
         vLLM only populates sampling_metadata.output_token_ids when penalties or
-        logits processors require it. CosyVoice3's custom RAS sampler also
-        depends on this history, so we reconstruct it directly from the input
-        batch for prefer_model_sampler models.
+        logits processors require it. CosyVoice3's custom RAS sampler and
+        HunyuanImage-3's stage-transition logic also depend on this history, so
+        we reconstruct it directly from request states for prefer_model_sampler
+        models.
+
+        CRITICAL: In async scheduling, scheduler and GPU runner are separate processes.
+        Scheduler's req_state.output_token_ids may preallocate placeholders (-1) for
+        future tokens that haven't been sampled yet, and may not reflect the actual
+        tokens sampled by GPU runner. We maintain a local cache (_model_sampler_token_history)
+        to accumulate token history across iterations, ensuring model sampler always sees
+        the correct history of tokens that were actually sampled by this GPU runner.
         """
         req_output_token_ids = getattr(self.input_batch, "req_output_token_ids", [])
         req_ids = list(getattr(self.input_batch, "req_ids", []))
-        output_token_ids = [list(req_output_token_ids[idx] or []) for idx in range(len(req_ids))]
+
+        # Step 1: Initialize from cached history or req_output_token_ids
+        output_token_ids: list[list[int]] = []
+        for index, req_id in enumerate(req_ids):
+            cached_history = self._model_sampler_token_history.get(req_id, [])
+            if cached_history:
+                # Use accumulated cache (already filtered, no -1 placeholders)
+                output_token_ids.append(list(cached_history))
+            elif index < len(req_output_token_ids):
+                # First iteration: start from scheduler's req_output_token_ids
+                output_token_ids.append(list(req_output_token_ids[index] or []))
+            else:
+                output_token_ids.append([])
 
         sampled_token_ids_cpu = getattr(self.input_batch, "sampled_token_ids_cpu", None)
         async_copy_ready_event = getattr(self.input_batch, "async_copy_ready_event", None)
@@ -127,13 +150,20 @@ class GPUARModelRunner(OmniGPUModelRunner, OmniConnectorModelRunnerMixin):
         if sampled_token_ids_cpu is None or not output_token_ids or prev_req_id_to_index is None:
             return output_token_ids
 
+        # Step 2: Fill placeholders with sampled tokens (preserve original logic)
         sampled_token_ids: list[list[int]] | None = None
         for index, req_id in enumerate(req_ids):
             prev_index = prev_req_id_to_index.get(req_id)
             if prev_index is None:
                 continue
             req_history = output_token_ids[index]
+            # Original logic: only process if history ends with -1 placeholder
             if not req_history or req_history[-1] != -1:
+                # No placeholders to fill, but still update cache with filtered history
+                filtered_history = [t for t in req_history if t != -1]
+                if filtered_history != req_history:
+                    output_token_ids[index] = filtered_history
+                    self._model_sampler_token_history[req_id] = filtered_history
                 continue
             if sampled_token_ids is None:
                 assert async_copy_ready_event is not None
@@ -142,11 +172,17 @@ class GPUARModelRunner(OmniGPUModelRunner, OmniConnectorModelRunnerMixin):
             new_ids = list(sampled_token_ids[prev_index])
             if not new_ids:
                 continue
+            # Count actual sampled tokens (excluding trailing -1 placeholders)
             num_sampled_ids = len(new_ids) if new_ids[-1] != -1 else new_ids.index(-1)
+            # Find where placeholders start in history
             first_placeholder = req_history.index(-1)
             num_placeholders = len(req_history) - first_placeholder
             num_to_replace = min(num_sampled_ids, num_placeholders)
+            # Replace placeholders with sampled tokens
             req_history[first_placeholder : first_placeholder + num_to_replace] = new_ids[:num_to_replace]
+            # Update cache with filtered history (no -1)
+            filtered_history = [t for t in req_history if t != -1]
+            self._model_sampler_token_history[req_id] = filtered_history
 
         return output_token_ids
 
@@ -710,6 +746,19 @@ class GPUARModelRunner(OmniGPUModelRunner, OmniConnectorModelRunnerMixin):
         if spec_decode_metadata is None:
             model_sample = getattr(self.model, "sample", None)
             if logits is not None and callable(model_sample) and getattr(self.model, "prefer_model_sampler", False):
+                # OMNI FIX: For prefer_model_sampler models in ASYNC scheduling mode,
+                # ensure output_token_ids is populated for stage-transition logic.
+                # In async scheduling, scheduler and GPU runner are separate processes,
+                # so scheduler's output_token_ids may contain stale placeholders (-1).
+                #
+                # In SYNC scheduling mode, scheduler and GPU runner share the same
+                # process, so sampling_metadata.output_token_ids is already correct.
+                if self.use_async_scheduling:
+                    output_token_ids = self._build_model_sampler_output_token_ids()
+                    if output_token_ids:
+                        sampling_metadata = replace(sampling_metadata, output_token_ids=output_token_ids)
+                        self.input_batch.sampling_metadata = sampling_metadata
+
                 # Apply logit bias (min_tokens, allowed_token_ids) before
                 # the custom model sampler — the standard GPU sampler does
                 # this internally, but prefer_model_sampler bypasses it.
@@ -722,7 +771,7 @@ class GPUARModelRunner(OmniGPUModelRunner, OmniConnectorModelRunnerMixin):
                     )
                 sampler_output = model_sample(
                     logits,
-                    self._sampling_metadata_for_model_sampler(sampling_metadata),
+                    sampling_metadata,
                 )
                 if sampler_output is not None:
                     return sampler_output
