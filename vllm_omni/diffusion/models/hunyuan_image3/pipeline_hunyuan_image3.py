@@ -1385,6 +1385,15 @@ class HunyuanImage3Pipeline(
                         # Copy old attention mask values (embedding tokens use causal attention)
                         new_attention_mask[:, :, extra_tokens:, extra_tokens:] = attention_mask
                         attention_mask = new_attention_mask
+                    # Update custom_pos_emb to match new sequence length
+                    if custom_pos_emb is not None:
+                        cos, sin = custom_pos_emb
+                        # cos/sin shape: (bsz, seq_len, head_dim)
+                        # Pad cos/sin with zeros for new embedding positions
+                        # (embedding tokens don't need rotary, will be indexed via position_ids)
+                        cos_pad = torch.zeros(bsz, extra_tokens, cos.shape[-1], dtype=cos.dtype, device=cos.device)
+                        sin_pad = torch.zeros(bsz, extra_tokens, sin.shape[-1], dtype=sin.dtype, device=sin.device)
+                        custom_pos_emb = (torch.cat([cos, cos_pad], dim=1), torch.cat([sin, sin_pad], dim=1))
 
         # Instantiate placeholder tokens: <timestep>, <img> for cond images
         # Should only run once with kv-cache enabled.
