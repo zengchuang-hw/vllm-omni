@@ -110,9 +110,7 @@ class TestPrepareInputsForGenerationDistilled:
 
         assert "guidance_scatter_index" in model_inputs
         assert model_inputs["guidance_scatter_index"] is not None
-        assert torch.equal(
-            model_inputs["guidance_scatter_index"], kwargs["guidance_scatter_index"]
-        )
+        assert torch.equal(model_inputs["guidance_scatter_index"], kwargs["guidance_scatter_index"])
 
     def test_timesteps_r_passed_to_model_inputs(self):
         """Test that timesteps_r is passed through for MeanFlow models."""
@@ -154,9 +152,7 @@ class TestPrepareInputsForGenerationDistilled:
 
         assert "timesteps_r_scatter_index" in model_inputs
         assert model_inputs["timesteps_r_scatter_index"] is not None
-        assert torch.equal(
-            model_inputs["timesteps_r_scatter_index"], kwargs["timesteps_r_scatter_index"]
-        )
+        assert torch.equal(model_inputs["timesteps_r_scatter_index"], kwargs["timesteps_r_scatter_index"])
 
     def test_distilled_params_none_when_not_provided(self):
         """Test that distilled params are None when not provided."""
