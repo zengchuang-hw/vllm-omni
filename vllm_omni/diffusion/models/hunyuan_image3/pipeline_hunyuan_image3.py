@@ -1367,6 +1367,25 @@ class HunyuanImage3Pipeline(
                     cat_list.insert(len(cat_list) - 1, timesteps_r_emb)  # Insert before image_emb
                 inputs_embeds = torch.cat(cat_list, dim=1)
 
+                # Update attention_mask and query_lens for distilled model extra tokens
+                # Base cat_list has 2 elements (timestep_emb + image_emb), extra_tokens = len - 2
+                extra_tokens = len(cat_list) - 2
+                if extra_tokens > 0:
+                    # Update query_lens to include extra embedding tokens
+                    if query_lens is not None:
+                        query_lens = [q + extra_tokens for q in query_lens]
+                    # Update attention_mask to match new sequence length
+                    if attention_mask is not None:
+                        old_bsz, _, old_q_len, old_seq_len = attention_mask.shape
+                        new_q_len = old_q_len + extra_tokens
+                        new_seq_len = old_seq_len + extra_tokens
+                        new_attention_mask = torch.ones(
+                            old_bsz, 1, new_q_len, new_seq_len, dtype=attention_mask.dtype, device=attention_mask.device
+                        )
+                        # Copy old attention mask values (embedding tokens use causal attention)
+                        new_attention_mask[:, :, extra_tokens:, extra_tokens:] = attention_mask
+                        attention_mask = new_attention_mask
+
         # Instantiate placeholder tokens: <timestep>, <img> for cond images
         # Should only run once with kv-cache enabled.
         if cond_vae_images is not None:
