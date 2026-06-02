@@ -1102,6 +1102,12 @@ class HunyuanImage3Pipeline(
                 "cond_vit_image_mask": kwargs.get("cond_vit_image_mask"),
                 "vit_kwargs": kwargs.get("vit_kwargs"),
                 "cond_timestep_scatter_index": kwargs.get("cond_timestep_scatter_index"),
+                # For CFG distilled models
+                "guidance": kwargs.get("guidance"),
+                "guidance_scatter_index": kwargs.get("guidance_scatter_index"),
+                # For MeanFlow distilled models
+                "timesteps_r": kwargs.get("timesteps_r"),
+                "timesteps_r_scatter_index": kwargs.get("timesteps_r_scatter_index"),
                 "query_lens": kwargs.get("query_lens"),
                 "seq_lens": kwargs.get("seq_lens"),
                 "num_image_tokens": kwargs.get("num_image_tokens"),
