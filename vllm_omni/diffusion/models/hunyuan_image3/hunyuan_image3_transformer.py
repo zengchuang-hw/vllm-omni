@@ -909,11 +909,21 @@ class ImageKVCacheManager:
     def _get_current_starts(
         gen_timestep_scatter_index: torch.Tensor | None,
         ar_kv_len: int = 0,
+        is_distilled: bool = False,
     ) -> torch.Tensor:
+        """Get cached_prompt boundary from gen_timestep_scatter_index.
+
+        For distilled models, timestep token belongs to subsequent query,
+        NOT cached_prompt, so we subtract 1 to exclude it.
+        For non-distilled models, timestep token IS part of cached_prompt.
+        """
         assert gen_timestep_scatter_index is not None, (
             "`gen_timestep_scatter_index` is required to locate the generated image timestep token for image KV reuse."
         )
-        return gen_timestep_scatter_index[:, -1].to(dtype=torch.long) + ar_kv_len
+        starts = gen_timestep_scatter_index[:, -1].to(dtype=torch.long) + ar_kv_len
+        if is_distilled:
+            starts = starts - 1  # Exclude timestep from cached_prompt for distilled models
+        return starts
 
     def _cache_prompt_kv(
         self,
@@ -922,6 +932,7 @@ class ImageKVCacheManager:
         seq_len: int,
         shard_image_size: int | None = None,
         gen_timestep_scatter_index: torch.Tensor | None = None,
+        is_distilled: bool = False,
     ) -> tuple[torch.Tensor, torch.Tensor]:
         """Cache prompt KV on first_step. Consumes _injected_ar_kv.
 
@@ -951,7 +962,7 @@ class ImageKVCacheManager:
             key = torch.cat(new_keys, dim=0)
             value = torch.cat(new_values, dim=0)
 
-        cached_prompt_lens = self._get_current_starts(gen_timestep_scatter_index, ar_kv_len)
+        cached_prompt_lens = self._get_current_starts(gen_timestep_scatter_index, ar_kv_len, is_distilled)
         assert torch.all(cached_prompt_lens <= key.shape[1]), (
             f"cached_prompt_lens({cached_prompt_lens.tolist()}) must be <= key length({key.shape[1]})"
         )
@@ -1085,6 +1096,7 @@ class ImageKVCacheManager:
                 seq_len,
                 shard_image_size,
                 kwargs.get("gen_timestep_scatter_index"),
+                is_distilled=self.cfg_distilled,
             )
             if self.sp_size > 1:
                 local_prompt_len = seq_len - shard_image_size
