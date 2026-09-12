@@ -1,0 +1,23 @@
+# Experimental Hunyuan-OCR AR -> MammothModa2 DiT. Requires trained 2.5 weights.
+async_chunk: false
+pipeline: mammoth_moda25
+
+stages:
+  - stage_id: 0
+    devices: "0"
+    max_num_seqs: 1
+    max_model_len: 8192
+    gpu_memory_utilization: 0.5
+    enforce_eager: true
+    enable_prefix_caching: false
+  - stage_id: 1
+    devices: "0"
+    max_num_seqs: 1
+    gpu_memory_utilization: 0.3
+    enforce_eager: true
+    enable_prefix_caching: false
+    default_sampling_params:
+      extra_args:
+        text_guidance_scale: 9.0
+        cfg_range: [0.0, 1.0]
+        num_inference_steps: 50

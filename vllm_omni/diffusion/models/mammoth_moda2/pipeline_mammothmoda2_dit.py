@@ -180,6 +180,8 @@ class MammothModa2DiTPipeline(nn.Module, SupportsComponentDiscovery):
             int(self.config.vision_start_token_id),
             int(self.config.vision_end_token_id),
         ]
+        if hasattr(self.config, "image_newline_token_id"):
+            visual_ids.append(int(self.config.image_newline_token_id))
 
         device = full_hidden_states.device
         token_ids = torch.tensor(full_token_ids, dtype=torch.long, device=device)
