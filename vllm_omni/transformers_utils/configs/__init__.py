@@ -13,6 +13,7 @@ _CLASS_TO_MODULE: dict[str, str] = {
     "HiggsAudioV3Config": "vllm_omni.transformers_utils.configs.higgs_audio_v3",
     "Mammothmoda2Config": "vllm_omni.transformers_utils.configs.mammoth_moda2",
     "MammothModa25Config": "vllm_omni.transformers_utils.configs.mammoth_moda25",
+    "MammothModa25GemmaConfig": "vllm_omni.transformers_utils.configs.mammoth_moda25_gemma",
     "Mammothmoda2Qwen2_5_VLConfig": "vllm_omni.transformers_utils.configs.mammoth_moda2",
     "Mammothmoda2Qwen2_5_VLTextConfig": "vllm_omni.transformers_utils.configs.mammoth_moda2",
     "Mammothmoda2Qwen2_5_VLVisionConfig": "vllm_omni.transformers_utils.configs.mammoth_moda2",
@@ -39,6 +40,7 @@ __all__ = [
     "HiggsAudioV3Config",
     "Mammothmoda2Config",
     "MammothModa25Config",
+    "MammothModa25GemmaConfig",
     "Mammothmoda2Qwen2_5_VLConfig",
     "Mammothmoda2Qwen2_5_VLTextConfig",
     "Mammothmoda2Qwen2_5_VLVisionConfig",
@@ -84,6 +86,7 @@ from vllm_omni.transformers_utils.configs import glm_tts as _glm_tts  # noqa: F4
 from vllm_omni.transformers_utils.configs import higgs_audio_v3 as _higgs_audio_v3  # noqa: F401, E402
 from vllm_omni.transformers_utils.configs import mammoth_moda2 as _mammoth_moda2  # noqa: F401, E402
 from vllm_omni.transformers_utils.configs import mammoth_moda25 as _mammoth_moda25  # noqa: F401, E402
+from vllm_omni.transformers_utils.configs import mammoth_moda25_gemma as _mammoth_moda25_gemma  # noqa: F401, E402
 from vllm_omni.transformers_utils.configs import ming_flash_omni as _ming_flash_omni  # noqa: F401, E402
 from vllm_omni.transformers_utils.configs import minimax_music3 as _minimax_music3  # noqa: F401, E402
 from vllm_omni.transformers_utils.configs import omnivoice as _omnivoice  # noqa: F401, E402

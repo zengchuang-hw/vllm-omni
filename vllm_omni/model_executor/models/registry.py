@@ -124,6 +124,11 @@ _OMNI_MODELS = {
         "mammoth_moda25",
         "MammothModa25ForConditionalGeneration",
     ),
+    "MammothModa25GemmaForConditionalGeneration": (
+        "mammoth_moda25_gemma",
+        "mammoth_moda25_gemma",
+        "MammothModa25GemmaForConditionalGeneration",
+    ),
     "MammothModa2ARForConditionalGeneration": (
         "mammoth_moda2",
         "mammoth_moda2",

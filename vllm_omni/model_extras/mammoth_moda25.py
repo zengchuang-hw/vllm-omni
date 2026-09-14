@@ -3,7 +3,9 @@
 """Build the AR image grid from the trained checkpoint's token IDs."""
 
 
-def build_text_to_image_prompt(tokenizer, config, prompt, height=1024, width=1024):
+def build_text_to_image_prompt(
+    tokenizer, config, prompt, height=1024, width=1024, *, system_prompt="You are a helpful image generator."
+):
     if height <= 0 or width <= 0 or height % 16 or width % 16:
         raise ValueError("Image height and width must be positive multiples of 16")
     token_config = getattr(config, "gen_token_config", None)
@@ -26,8 +28,11 @@ def build_text_to_image_prompt(tokenizer, config, prompt, height=1024, width=102
     if any(ids["visual_token_start_id"] <= ids[key] <= ids["visual_token_end_id"] for key in required[:3]):
         raise ValueError("Image delimiters and EOL must be outside the visual code range")
     ar_width, ar_height = width // 16, height // 16
+    messages = [{"role": "user", "content": prompt}]
+    if system_prompt is not None:
+        messages.insert(0, {"role": "system", "content": system_prompt})
     token_ids = tokenizer.apply_chat_template(
-        [{"role": "system", "content": "You are a helpful image generator."}, {"role": "user", "content": prompt}],
+        messages,
         tokenize=True,
         add_generation_prompt=True,
     )
