@@ -1,0 +1,21 @@
+{
+  "head": {
+    "FAILED": 294,
+    "ERROR": 26
+  },
+  "base": {
+    "FAILED": 294,
+    "ERROR": 26
+  },
+  "identical_adverse_outcomes": {
+    "ERROR": 26,
+    "FAILED": 293
+  },
+  "head_only": [
+    "tests/host_weight_runtime/test_filesystem_store.py::test_cleanup_after_move_crash_tombstone_is_removed_by_next_build"
+  ],
+  "base_only": [
+    "tests/host_weight_runtime/test_filesystem_store.py::test_post_rename_quarantine_crash_is_rehardened_by_next_build"
+  ],
+  "different_outcome": []
+}

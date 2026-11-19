@@ -46,16 +46,25 @@ One CUDA-event interval over 100 warmed graph replays on the same L20X for each 
 
 ## Unit-test evidence at final head
 
-| Selection | Passed | Failed | Skipped | Deselected | Collection errors |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Fish model and serving reference cases | 217 | 0 | 0 | 0 | 0 |
-| L4 markers on L20X | 1,930 | 0 | 16 | 15,999 | 0 |
-| H100 markers on L20X | 118 | 0 | 7 | 17,820 | 0 |
-| Two Buildkite contract files, each checkout | 434 | 0 | 6 | 0 | 0 |
-| Full CPU selection without a visible GPU, merge base | 0 | 0 | 30 | 6,860 | 2 |
-| Full CPU selection without a visible GPU, final head | 0 | 0 | 30 | 6,863 | 2 |
+| Selection | Passed | Failed | Test errors | Skipped | Xfailed | Deselected | Collection errors |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Full CPU selection, GPU visible, merge base | 42,555 | 294 | 26 | 169 | 1 | 6,865 | 0 |
+| Full CPU selection, GPU visible, final head | 42,590 | 294 | 26 | 169 | 1 | 6,868 | 0 |
+| Full CPU selection, no visible GPU, merge base | 0 | 0 | 0 | 30 | 0 | 6,860 | 2 |
+| Full CPU selection, no visible GPU, final head | 0 | 0 | 0 | 30 | 0 | 6,863 | 2 |
+| L4 selection on L20X, final head | 1,930 | 0 | 0 | 16 | 0 | 15,999 | 0 |
+| H100 selection on L20X, final head | 118 | 0 | 0 | 7 | 0 | 17,820 | 0 |
+| Fish model and serving reference cases, final head | 217 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Two Buildkite contract files, each checkout | 434 | 0 | 0 | 6 | 0 | 0 | 0 |
+| Two filesystem-store cases, each checkout, isolated rerun | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
 
-The exact R2-01 guard collected 1,439 of 13,198 nodes, with 11,759 deselected. The no-visible-GPU CPU runs both stopped during collection in `test_hunyuan_image3_adapter_cuda.py` and `test_shared_postload_cuda.py`. Both modules invoke a skip outside a test. The full visible-GPU CPU runs are recorded separately. [Collection](logs/guard-head.log) · [Fish](logs/fish-final.log) · [H100 selector](logs/cuda-H100.log) · [L4 selector](logs/cuda-L4.log) · [Buildkite base](logs/isolated-checks-base.log) · [Buildkite head](logs/isolated-checks-head.log) · [CPU collection, base](logs/cpu-base.log) · [CPU collection, head](logs/cpu-head.log)
+Both full visible-GPU CPU runs finished. The base selected 43,015 nodes and ran for 2 h 32 min 57 s. Head selected 43,050 and ran for 2 h 28 min 18 s. Pytest reported three additional passed subtests on each. Across both runs **293 failed node IDs and all 26 error node IDs matched**. One different filesystem-store case on each revision exceeded its test worker's internal 60-second deadline. The pair passed on both revisions when rerun together on a single reserved L20X. The PR changes neither the filesystem-store implementation nor its tests. The table preserves the original full-run failures. [Base summary](logs/cpu-visible-base.log) · [Head summary](logs/cpu-visible-head.log) · [Per-node comparison](logs/cpu-adverse-outcomes.tsv) · [Difference](logs/cpu-comparison.json) · [Base rerun](logs/store-base.log) · [Head rerun](logs/store-head.log)
+
+Both no-visible-GPU runs stopped during collection in `test_hunyuan_image3_adapter_cuda.py` and `test_shared_postload_cuda.py`. A module-level helper calls `pytest.skip` outside a test without `allow_module_level=True`. In the full runs on shared temporary storage, both Buildkite contract files also encountered unrelated test artifacts. Using an empty private temporary directory, each checkout completed both files with 434 passed and six skipped. [Base collection](logs/cpu-base.log) · [Head collection](logs/cpu-head.log) · [Buildkite base](logs/isolated-checks-base.log) · [Buildkite head](logs/isolated-checks-head.log)
+
+The exact R2-01 guard passed with **1,439 of 13,198 nodes**, 11,759 deselected. Native H100, L4, MI325 (R2-01 shard IDs 0, 1 and 2) and Ascend Ready jobs have no matching-head result attached. The available accelerator for local runs was an L20X. A connection attempt to the separately configured Ascend host timed out before authentication. The PR had no `ready` label when checked. Its seven published GitHub checks passed, including the two Python builds, pre-commit, Analyze, CodeQL, DCO and Read the Docs. Full native backend coverage remains open for maintainer CI admission or disposition. [R2-01 guard](logs/guard-head.log) · [Fish](logs/fish-final.log) · [H100 selection](logs/cuda-H100.log) · [L4 selection](logs/cuda-L4.log) · [PR checks](https://github.com/vllm-project/vllm-omni/pull/10669/checks)
+
+The public logs retain the pytest collection and exit summaries. For the full runs the adverse outcome table uses short hashes of parametrization strings so cases can be compared without publishing machine-local details.
 
 ## Reproduction
 
@@ -89,6 +98,7 @@ pytest -sv tests/engine/ tests/model_executor/ tests/worker_v2/ tests/worker/ -m
 pytest -sv tests/engine/ tests/model_executor/ tests/worker_v2/ tests/worker/ -m 'core_model and cuda and L4' --run-level core_model
 python -m pytest -q tests/entrypoints/openai_api/test_fish_omni_reference_codes.py tests/model_executor/models/fish_omni
 python -m pytest -q tests/buildkite/test_amd_ready_r2_01.py tests/buildkite/test_amd_pipeline.py
+pytest -sv --tb=short tests/host_weight_runtime/test_filesystem_store.py::test_cleanup_after_move_crash_tombstone_is_removed_by_next_build tests/host_weight_runtime/test_filesystem_store.py::test_post_rename_quarantine_crash_is_rehardened_by_next_build -m 'core_model and cpu'
 bash .buildkite/amd/scripts/assert-pytest-collection.sh 1439 tests/model_executor/ -m 'core_model and rocm and MI325 and not nvidia_only and not (cards_2 or cards_3 or cards_4 or cards_5 or cards_6 or cards_7 or cards_8)' --run-level core_model
 ```
 
