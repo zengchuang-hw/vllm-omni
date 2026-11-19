@@ -49,12 +49,13 @@ One CUDA-event interval over 100 warmed graph replays on the same L20X for each 
 | Selection | Passed | Failed | Skipped | Deselected | Collection errors |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Fish model and serving reference cases | 217 | 0 | 0 | 0 | 0 |
+| L4 markers on L20X | 1,930 | 0 | 16 | 15,999 | 0 |
 | H100 markers on L20X | 118 | 0 | 7 | 17,820 | 0 |
 | Two Buildkite contract files, each checkout | 434 | 0 | 6 | 0 | 0 |
 | Full CPU selection without a visible GPU, merge base | 0 | 0 | 30 | 6,860 | 2 |
 | Full CPU selection without a visible GPU, final head | 0 | 0 | 30 | 6,863 | 2 |
 
-The exact R2-01 guard collected 1,439 of 13,198 nodes, with 11,759 deselected. The no-visible-GPU CPU runs both stopped during collection in `test_hunyuan_image3_adapter_cuda.py` and `test_shared_postload_cuda.py`. Both modules invoke a skip outside a test. The full visible-GPU CPU runs are recorded separately. [Collection](logs/guard-head.log) · [Fish](logs/fish-final.log) · [H100 selector](logs/cuda-H100.log) · [Buildkite base](logs/isolated-checks-base.log) · [Buildkite head](logs/isolated-checks-head.log) · [CPU collection, base](logs/cpu-base.log) · [CPU collection, head](logs/cpu-head.log)
+The exact R2-01 guard collected 1,439 of 13,198 nodes, with 11,759 deselected. The no-visible-GPU CPU runs both stopped during collection in `test_hunyuan_image3_adapter_cuda.py` and `test_shared_postload_cuda.py`. Both modules invoke a skip outside a test. The full visible-GPU CPU runs are recorded separately. [Collection](logs/guard-head.log) · [Fish](logs/fish-final.log) · [H100 selector](logs/cuda-H100.log) · [L4 selector](logs/cuda-L4.log) · [Buildkite base](logs/isolated-checks-base.log) · [Buildkite head](logs/isolated-checks-head.log) · [CPU collection, base](logs/cpu-base.log) · [CPU collection, head](logs/cpu-head.log)
 
 ## Reproduction
 
