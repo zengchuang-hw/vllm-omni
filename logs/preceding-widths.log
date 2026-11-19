@@ -1,0 +1,2 @@
+{"case": "base", "batch": 8, "width": 64, "frames": 100, "mean_us": 305.35104751586914, "device": "NVIDIA L20X", "torch": "2.14.0+cu130"}
+{"case": "head", "batch": 8, "width": 4096, "frames": 100, "mean_us": 302.28160858154297, "device": "NVIDIA L20X", "torch": "2.14.0+cu130"}

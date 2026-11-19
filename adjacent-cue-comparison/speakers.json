@@ -1,0 +1,249 @@
+{
+  "campplus_sha256": "a6ac6a63997761ae2997373e2ee1c47040854b4b759ea41ec48e4e42df0f4d73",
+  "results": {
+    "campplus": {
+      "zh17-multi": {
+        "zh17-multi": 0.1363,
+        "zh17-single": 0.2243,
+        "zh18-single": 0.1776,
+        "zh18-multi": 0.1325,
+        "zh19-multi": 0.2415,
+        "zh19-single": 0.2518,
+        "zh20-single": 0.1875,
+        "zh20-multi": 0.1716,
+        "zh21-multi": 0.1786,
+        "zh21-single": 0.2284
+      },
+      "zh17-single": {
+        "zh17-multi": 0.1173,
+        "zh17-single": 0.7236,
+        "zh18-single": 0.1717,
+        "zh18-multi": 0.2709,
+        "zh19-multi": 0.2317,
+        "zh19-single": 0.1966,
+        "zh20-single": 0.1897,
+        "zh20-multi": 0.3849,
+        "zh21-multi": 0.4124,
+        "zh21-single": 0.2507
+      },
+      "zh18-single": {
+        "zh17-multi": -0.0789,
+        "zh17-single": 0.19,
+        "zh18-single": 0.8442,
+        "zh18-multi": 0.1266,
+        "zh19-multi": 0.2333,
+        "zh19-single": 0.302,
+        "zh20-single": 0.21,
+        "zh20-multi": 0.3668,
+        "zh21-multi": 0.2062,
+        "zh21-single": 0.3742
+      },
+      "zh18-multi": {
+        "zh17-multi": 0.0411,
+        "zh17-single": 0.1882,
+        "zh18-single": 0.1619,
+        "zh18-multi": 0.5004,
+        "zh19-multi": 0.2482,
+        "zh19-single": 0.2092,
+        "zh20-single": 0.1759,
+        "zh20-multi": 0.2821,
+        "zh21-multi": 0.2933,
+        "zh21-single": 0.2008
+      },
+      "zh19-multi": {
+        "zh17-multi": 0.0943,
+        "zh17-single": 0.1861,
+        "zh18-single": 0.1758,
+        "zh18-multi": 0.2095,
+        "zh19-multi": 0.8251,
+        "zh19-single": 0.2478,
+        "zh20-single": 0.3808,
+        "zh20-multi": 0.0659,
+        "zh21-multi": 0.2894,
+        "zh21-single": 0.1404
+      },
+      "zh19-single": {
+        "zh17-multi": 0.0507,
+        "zh17-single": 0.2575,
+        "zh18-single": 0.3651,
+        "zh18-multi": 0.426,
+        "zh19-multi": 0.3089,
+        "zh19-single": 0.8326,
+        "zh20-single": 0.3979,
+        "zh20-multi": 0.4741,
+        "zh21-multi": 0.3604,
+        "zh21-single": 0.5692
+      },
+      "zh20-single": {
+        "zh17-multi": 0.0793,
+        "zh17-single": 0.1533,
+        "zh18-single": 0.2752,
+        "zh18-multi": 0.23,
+        "zh19-multi": 0.398,
+        "zh19-single": 0.3181,
+        "zh20-single": 0.7724,
+        "zh20-multi": 0.1883,
+        "zh21-multi": 0.2629,
+        "zh21-single": 0.242
+      },
+      "zh20-multi": {
+        "zh17-multi": 0.1367,
+        "zh17-single": 0.2793,
+        "zh18-single": 0.3102,
+        "zh18-multi": 0.3732,
+        "zh19-multi": 0.107,
+        "zh19-single": 0.1963,
+        "zh20-single": 0.2236,
+        "zh20-multi": 0.5877,
+        "zh21-multi": 0.1754,
+        "zh21-single": 0.4112
+      },
+      "zh21-multi": {
+        "zh17-multi": 0.0947,
+        "zh17-single": 0.2689,
+        "zh18-single": 0.293,
+        "zh18-multi": 0.4282,
+        "zh19-multi": 0.382,
+        "zh19-single": 0.5377,
+        "zh20-single": 0.4439,
+        "zh20-multi": 0.3313,
+        "zh21-multi": 0.3852,
+        "zh21-single": 0.5255
+      },
+      "zh21-single": {
+        "zh17-multi": -0.044,
+        "zh17-single": 0.2142,
+        "zh18-single": 0.4776,
+        "zh18-multi": 0.3443,
+        "zh19-multi": 0.2289,
+        "zh19-single": 0.466,
+        "zh20-single": 0.2183,
+        "zh20-multi": 0.492,
+        "zh21-multi": 0.3199,
+        "zh21-single": 0.7955
+      }
+    },
+    "wavlm": {
+      "zh17-multi": {
+        "zh17-multi": 0.7152,
+        "zh17-single": 0.7197,
+        "zh18-single": 0.7902,
+        "zh18-multi": 0.8612,
+        "zh19-multi": 0.8239,
+        "zh19-single": 0.8425,
+        "zh20-single": 0.8001,
+        "zh20-multi": 0.8741,
+        "zh21-multi": 0.8699,
+        "zh21-single": 0.7915
+      },
+      "zh17-single": {
+        "zh17-multi": 0.8276,
+        "zh17-single": 0.9415,
+        "zh18-single": 0.4529,
+        "zh18-multi": 0.5476,
+        "zh19-multi": 0.5144,
+        "zh19-single": 0.4703,
+        "zh20-single": 0.4377,
+        "zh20-multi": 0.5399,
+        "zh21-multi": 0.7231,
+        "zh21-single": 0.4671
+      },
+      "zh18-single": {
+        "zh17-multi": 0.6132,
+        "zh17-single": 0.5259,
+        "zh18-single": 0.9559,
+        "zh18-multi": 0.894,
+        "zh19-multi": 0.9174,
+        "zh19-single": 0.8986,
+        "zh20-single": 0.8914,
+        "zh20-multi": 0.9385,
+        "zh21-multi": 0.8113,
+        "zh21-single": 0.9268
+      },
+      "zh18-multi": {
+        "zh17-multi": 0.7383,
+        "zh17-single": 0.7059,
+        "zh18-single": 0.775,
+        "zh18-multi": 0.8824,
+        "zh19-multi": 0.858,
+        "zh19-single": 0.8399,
+        "zh20-single": 0.8018,
+        "zh20-multi": 0.8347,
+        "zh21-multi": 0.8653,
+        "zh21-single": 0.8026
+      },
+      "zh19-multi": {
+        "zh17-multi": 0.5755,
+        "zh17-single": 0.5373,
+        "zh18-single": 0.874,
+        "zh18-multi": 0.9057,
+        "zh19-multi": 0.9488,
+        "zh19-single": 0.8836,
+        "zh20-single": 0.8827,
+        "zh20-multi": 0.9187,
+        "zh21-multi": 0.7791,
+        "zh21-single": 0.8831
+      },
+      "zh19-single": {
+        "zh17-multi": 0.5839,
+        "zh17-single": 0.4603,
+        "zh18-single": 0.9121,
+        "zh18-multi": 0.925,
+        "zh19-multi": 0.9266,
+        "zh19-single": 0.9828,
+        "zh20-single": 0.9575,
+        "zh20-multi": 0.944,
+        "zh21-multi": 0.8444,
+        "zh21-single": 0.9574
+      },
+      "zh20-single": {
+        "zh17-multi": 0.5221,
+        "zh17-single": 0.4601,
+        "zh18-single": 0.8802,
+        "zh18-multi": 0.9174,
+        "zh19-multi": 0.9624,
+        "zh19-single": 0.9355,
+        "zh20-single": 0.9371,
+        "zh20-multi": 0.9247,
+        "zh21-multi": 0.7914,
+        "zh21-single": 0.9
+      },
+      "zh20-multi": {
+        "zh17-multi": 0.5078,
+        "zh17-single": 0.4791,
+        "zh18-single": 0.8906,
+        "zh18-multi": 0.91,
+        "zh19-multi": 0.938,
+        "zh19-single": 0.9464,
+        "zh20-single": 0.9481,
+        "zh20-multi": 0.9438,
+        "zh21-multi": 0.7772,
+        "zh21-single": 0.9103
+      },
+      "zh21-multi": {
+        "zh17-multi": 0.5772,
+        "zh17-single": 0.5466,
+        "zh18-single": 0.8571,
+        "zh18-multi": 0.9372,
+        "zh19-multi": 0.9338,
+        "zh19-single": 0.9308,
+        "zh20-single": 0.9109,
+        "zh20-multi": 0.9147,
+        "zh21-multi": 0.8177,
+        "zh21-single": 0.8821
+      },
+      "zh21-single": {
+        "zh17-multi": 0.669,
+        "zh17-single": 0.5162,
+        "zh18-single": 0.964,
+        "zh18-multi": 0.902,
+        "zh19-multi": 0.911,
+        "zh19-single": 0.9456,
+        "zh20-single": 0.9449,
+        "zh20-multi": 0.9315,
+        "zh21-multi": 0.8607,
+        "zh21-single": 0.9829
+      }
+    }
+  }
+}
