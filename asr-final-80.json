@@ -1,0 +1,642 @@
+[
+  {
+    "prompt": 0,
+    "seed": 0,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 1,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 2,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 3,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 4,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 5,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 6,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 7,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 8,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 9,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 10,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 11,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 12,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Heh. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 1
+  },
+  {
+    "prompt": 0,
+    "seed": 13,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine, if we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 14,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 15,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 16,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 17,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 0,
+    "seed": 18,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Ugh, fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 1
+  },
+  {
+    "prompt": 0,
+    "seed": 19,
+    "ref": "fine if we miss it it is on you well maybe that is fair",
+    "hyp": "Fine. If we miss it, it is on you. Well, maybe that is fair.",
+    "words": 14,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 0,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 1,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 2,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 3,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 4,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 5,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 6,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 7,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 8,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening, the lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 9,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 10,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 11,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 12,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 13,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 14,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 15,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on. The room is quiet and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 16,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 1,
+    "seed": 17,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "The lights are on, the room is quiet and we are ready to begin.",
+    "words": 16,
+    "errors": 2
+  },
+  {
+    "prompt": 1,
+    "seed": 18,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "It's evening, the lights are on, the room is quiet, and we are ready to begin.",
+    "words": 16,
+    "errors": 2
+  },
+  {
+    "prompt": 1,
+    "seed": 19,
+    "ref": "good evening the lights are on the room is quiet and we are ready to begin",
+    "hyp": "Good evening. The lights are on, the room is quiet and we are ready to begin.",
+    "words": 16,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 0,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 1,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 2,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 3,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 4,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 5,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 6,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 7,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 8,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 9,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 10,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave, then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 11,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped, and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 12,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 13,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 14,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 15,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 16,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 17,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 2,
+    "seed": 18,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The arena stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 2
+  },
+  {
+    "prompt": 2,
+    "seed": 19,
+    "ref": "the rain has stopped and the street is quiet i left a note on the kitchen table please read it before you leave then call me when you reach the station",
+    "hyp": "The rain has stopped and the street is quiet. I left a note on the kitchen table. Please read it before you leave. Then call me when you reach the station.",
+    "words": 31,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 0,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 1,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 2,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 3,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "Thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 1
+  },
+  {
+    "prompt": 3,
+    "seed": 4,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 5,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 6,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 7,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 8,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 9,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 10,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 11,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 12,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 13,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 14,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 15,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 16,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 17,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 18,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  },
+  {
+    "prompt": 3,
+    "seed": 19,
+    "ref": "i thought you had forgotten i am glad you came back",
+    "hyp": "I thought you had forgotten. I am glad you came back.",
+    "words": 11,
+    "errors": 0
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "en1": {
+    "full": "language English<asr_text>The last train leaves at seven tonight. Please wait for me beside the old clock.",
+    "last_clause": "language English<asr_text>Please wait for me beside the old clock."
+  },
+  "en2": {
+    "full": "language English<asr_text>I put the blue envelope on the table. The ticket was inside my coat all along.",
+    "last_clause": "language English<asr_text>The ticket was inside my coat all along."
+  },
+  "en3": {
+    "full": "language English<asr_text>We found the path before the sun came up. Follow the river until you see a stone bridge.",
+    "last_clause": "language English<asr_text>Follow the river until you see a stone bridge."
+  },
+  "zh1": {
+    "full": "language Chinese<asr_text>今天下午我们去公园散步，啊，记得带上雨伞，天气可能会变。",
+    "last_clause": "language Chinese<asr_text>记得带上雨伞，天气可能会变。"
+  },
+  "zh2": {
+    "full": "language Chinese<asr_text>我把钥匙放在门口的桌子上。原来你已经找到那本书了。",
+    "last_clause": "language Chinese<asr_text>原来你已经找到那本书了。"
+  },
+  "zh3": {
+    "full": "language Chinese<asr_text>火车明天早上八点出发。哼，我们在车站门口的钟楼下面见面。",
+    "last_clause": "language Chinese<asr_text>哼，我们在车站门口的钟楼下面见面。"
+  }
+}

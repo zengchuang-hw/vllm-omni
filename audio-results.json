@@ -1,0 +1,92 @@
+[
+  {
+    "key": "en1",
+    "script": "[softly] The last train leaves at seven tonight. [sighs] Please wait for me beside the old clock.",
+    "hyp": "The last train leaves at seven tonight. Please wait for me beside the old clock.",
+    "before": "The last train leaves at seven tonight.",
+    "after": "Please wait for me beside the old clock.",
+    "duration": 6.502,
+    "boundary": 3.14,
+    "tail_s": 0.18,
+    "cosine": 0.9708,
+    "other_take_same_language_cosines": [
+      0.3359,
+      0.4767
+    ]
+  },
+  {
+    "key": "en2",
+    "script": "[whisper] I put the blue envelope on the table. [laughs] The ticket was inside my coat all along.",
+    "hyp": "I put the blue envelope on the table. The ticket was inside my coat all along.",
+    "before": "I put the blue envelope on the table.",
+    "after": "The ticket was inside my coat all along.",
+    "duration": 6.316,
+    "boundary": 3.44,
+    "tail_s": 0.14,
+    "cosine": 0.7961,
+    "other_take_same_language_cosines": [
+      0.2077,
+      0.7609
+    ]
+  },
+  {
+    "key": "en3",
+    "script": "[excited] We found the path before the sun came up! [softly] Follow the river until you see a stone bridge.",
+    "hyp": "We found the path before the sun came up. Follow the river until you see a stone bridge.",
+    "before": "We found the path before the sun came up.",
+    "after": "Follow the river until you see a stone bridge.",
+    "duration": 5.016,
+    "boundary": 1.94,
+    "tail_s": 0.0,
+    "cosine": 0.8928,
+    "other_take_same_language_cosines": [
+      0.3079,
+      0.6171
+    ]
+  },
+  {
+    "key": "zh1",
+    "script": "[轻声] 今天下午我们去公园散步。[叹气] 记得带上雨伞，天气可能会变。",
+    "hyp": "今天下午,我们去公园散步。记得带上雨伞,天气可能会变。",
+    "before": "今天下午,我們去公園散步。",
+    "after": "记得带上雨伞天气可能会变",
+    "duration": 6.966,
+    "boundary": 3.0,
+    "tail_s": 0.16,
+    "cosine": 0.9424,
+    "other_take_same_language_cosines": [
+      0.7219,
+      0.6385
+    ]
+  },
+  {
+    "key": "zh2",
+    "script": "[sighs] 我把钥匙放在门口的桌子上。[laughs] 原来你已经找到那本书了。",
+    "hyp": "我把钥匙放在门口的桌子上原来你已经找到那本书了",
+    "before": "我把钥匙放在门口的桌子上",
+    "after": "原来你已经找到你的本书了",
+    "duration": 5.944,
+    "boundary": 2.94,
+    "tail_s": 0.28,
+    "cosine": 0.9435,
+    "other_take_same_language_cosines": [
+      0.8147,
+      0.7737
+    ]
+  },
+  {
+    "key": "zh3",
+    "script": "[轻声] 火车明天早上八点出发。[笑] 我们在车站门口的钟楼下面见面。",
+    "hyp": "火车明天早上八点出发,我们在车站门口的钟楼下面前面。",
+    "before": "火车明天早上8点出发,",
+    "after": "哼,我们在车站门口的中楼下面见面。",
+    "duration": 5.712,
+    "boundary": 2.14,
+    "tail_s": 0.14,
+    "cosine": 0.9016,
+    "other_take_same_language_cosines": [
+      0.5931,
+      0.8145
+    ]
+  }
+]

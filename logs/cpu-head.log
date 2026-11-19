@@ -1,0 +1,6 @@
+collected 49913 items / 2 errors / 6863 deselected / 30 skipped / 43050 selected
+Running 43050 items in this shard
+ERROR tests/distributed/weight_sharing/test_hunyuan_image3_adapter_cuda.py
+ERROR tests/distributed/weight_sharing/test_shared_postload_cuda.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+=== 30 skipped, 6863 deselected, 26 warnings, 2 errors in 185.16s (0:03:05) ====
